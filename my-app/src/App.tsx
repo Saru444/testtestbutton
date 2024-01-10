@@ -25,14 +25,16 @@ function App() {
 
     // setChecked(true);
     // setIsChecked([...isChecked, checked]);
-    // setValue(item);
+
     // if (item === undefined) return;
+    setValue(item);
     setAnswer({ position, item });
   };
 
   // console.log("checked", checked);
   // console.log("isChecked", isChecked);
-  console.log("value", value);
+
+  //console.log("value", value);
   console.log("answer", answer);
 
   return (
@@ -47,7 +49,7 @@ function App() {
               id={item.id}
               // setIsChecked={() => setChecked(!checked)}
               // isChecked={!checked}
-              getAllChecked={() => getAllChecked(item.id, value)}
+              onClick={getAllChecked}
             />
           </div>
         );

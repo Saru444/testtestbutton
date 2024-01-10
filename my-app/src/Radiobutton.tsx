@@ -6,7 +6,7 @@ type Props = {
   // isChecked: boolean;
   // onClick: (id: number) => void;
   // setIsChecked: (isChecked: boolean) => void;
-  getAllChecked: (id: number, item: number | undefined) => void;
+  onClick: (id: number, item: number | undefined) => void;
 };
 
 const Radiobutton = ({
@@ -14,7 +14,7 @@ const Radiobutton = ({
 
   id,
 
-  getAllChecked,
+  onClick,
 }: Props) => {
   const [value, setValue] = useState<number | undefined>(0);
 
@@ -37,7 +37,7 @@ const Radiobutton = ({
                   onChange={() => {
                     onAnswer(score);
                   }}
-                  onClick={() => getAllChecked(id, score)}
+                  onClick={() => onClick(id, score)}
                   id="default-radio-1"
                   type="radio"
                   checked={value === score}
@@ -61,7 +61,7 @@ const Radiobutton = ({
                   onChange={() => {
                     onAnswer(score);
                   }}
-                  onClick={() => getAllChecked(id, score)}
+                  onClick={() => onClick(id, score)}
                   id="default-radio-1"
                   type="radio"
                   checked={value === score}
