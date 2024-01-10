@@ -12,11 +12,12 @@ const data = [
   { id: 2, question: "Hur mycket har du sovit i år?", questionType: 2 },
 ];
 function App() {
+  const [answer, setAnswer] = useState({});
   const [value, setValue] = useState<number | undefined>(0);
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
   const [checked, setChecked] = useState(false);
 
-  const getAllChecked = (item: number | undefined) => {
+  const getAllChecked = (position: number, item: number | undefined) => {
     // const updatedChecked = isChecked.map((item, index) => {
     //   return index === position ? !item : item;
     // });
@@ -24,12 +25,15 @@ function App() {
 
     // setChecked(true);
     // setIsChecked([...isChecked, checked]);
-    setValue(item);
+    // setValue(item);
+    // if (item === undefined) return;
+    setAnswer({ position, item });
   };
 
   // console.log("checked", checked);
   // console.log("isChecked", isChecked);
   console.log("value", value);
+  console.log("answer", answer);
 
   return (
     <div className="App">
@@ -39,11 +43,11 @@ function App() {
             <div>{item.question}</div>
             <Radiobutton
               type={item.questionType}
-              onClick={() => getAllChecked(item.id)}
+              // onClick={() => getAllChecked(item.id)}
               id={item.id}
-              setIsChecked={() => setChecked(!checked)}
-              isChecked={!checked}
-              getAllChecked={getAllChecked}
+              // setIsChecked={() => setChecked(!checked)}
+              // isChecked={!checked}
+              getAllChecked={() => getAllChecked(item.id, value)}
             />
           </div>
         );
