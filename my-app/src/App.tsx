@@ -16,7 +16,9 @@ function App() {
   const [value, setValue] = useState<number | undefined>(0);
   const [isChecked, setIsChecked] = useState<boolean[]>([]);
   const [checked, setChecked] = useState(false);
+  const [answerList, setAnswerList] = useState<any>([]);
 
+  //answerList not work like what I want and if I har let answerList ,then answerList push , it not work either
   const getAllChecked = (position: number, item: number | undefined) => {
     // const updatedChecked = isChecked.map((item, index) => {
     //   return index === position ? !item : item;
@@ -29,6 +31,7 @@ function App() {
     // if (item === undefined) return;
     setValue(item);
     setAnswer({ position, item });
+    setAnswerList([...answerList, answer]);
   };
 
   // console.log("checked", checked);
@@ -36,6 +39,7 @@ function App() {
 
   //console.log("value", value);
   console.log("answer", answer);
+  console.log("answerList", answerList);
 
   return (
     <div className="App">

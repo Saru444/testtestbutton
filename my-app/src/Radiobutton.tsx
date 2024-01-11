@@ -74,7 +74,6 @@ const Radiobutton = ({
             ))}
         </div>
       )}
-      {/* <button disabled={value === 0}>send</button> */}
     </div>
   );
 };
