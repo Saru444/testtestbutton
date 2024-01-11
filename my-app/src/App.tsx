@@ -31,6 +31,7 @@ function App() {
     // if (item === undefined) return;
     setValue(item);
     setAnswer({ position, item });
+
     setAnswerList([...answerList, answer]);
   };
 
