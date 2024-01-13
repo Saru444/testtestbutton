@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Radiobutton from "./Radiobutton";
+import { log } from "console";
 
 const data = [
   {
@@ -14,16 +15,25 @@ const data = [
 function App() {
   const [answer, setAnswer] = useState({});
   const [value, setValue] = useState<number | undefined>(0);
-  const [isChecked, setIsChecked] = useState<boolean[]>([]);
+
   const [checked, setChecked] = useState(false);
+
+  const [showQuestions, setShowQuestions] = useState(true);
   const [answerList, setAnswerList] = useState<any>([]);
+
+  const [answerValue, setAnswerValue] = useState({});
+  const [isChecked, setIsChecked] = useState(new Array(data.length).fill([]));
+  console.log("isChecked", isChecked);
 
   //answerList not work like what I want and if I har let answerList ,then answerList push , it not work either
   const getAllChecked = (position: number, item: number | undefined) => {
-    // const updatedChecked = isChecked.map((item, index) => {
-    //   return index === position ? !item : item;
-    // });
-    // setIsChecked([...updatedChecked]);
+    const updatedChecked = isChecked.map((value, index) => {
+      if (index === position) {
+        return value === item;
+      }
+      return value;
+    });
+    setIsChecked([...updatedChecked]);
 
     // setChecked(true);
     // setIsChecked([...isChecked, checked]);
@@ -31,35 +41,56 @@ function App() {
     // if (item === undefined) return;
     setValue(item);
     setAnswer({ position, item });
+
     setAnswerList([...answerList, answer]);
+
+    setAnswerValue({ item });
+  };
+
+  const onSubmit = () => {
+    setShowQuestions(!showQuestions);
   };
 
   // console.log("checked", checked);
   // console.log("isChecked", isChecked);
 
   //console.log("value", value);
-  console.log("answer", answer);
-  console.log("answerList", answerList);
+  // console.log("answer", answer);
+  // console.log("answerList", answerList);
+  // console.log("answerValue", answerValue);
 
   return (
     <div className="App">
-      {data.map((item, index) => {
-        return (
-          <div key={index}>
-            <div>{item.question}</div>
-            <Radiobutton
-              type={item.questionType}
-              // onClick={() => getAllChecked(item.id)}
-              id={item.id}
-              // setIsChecked={() => setChecked(!checked)}
-              // isChecked={!checked}
-              onClick={getAllChecked}
-            />
-          </div>
-        );
-      })}
-      <br />
-      <button disabled={true}>submit</button>
+      {showQuestions ? (
+        <div>
+          {data.map((item, index) => {
+            return (
+              <div key={index}>
+                <div>{item.question}</div>
+                <Radiobutton
+                  type={item.questionType}
+                  // onClick={() => getAllChecked(item.id)}
+                  id={item.id}
+                  // setIsChecked={() => setChecked(!checked)}
+                  // isChecked={!checked}
+                  onClick={getAllChecked}
+                />
+              </div>
+            );
+          })}
+          <br />
+          <button
+            disabled={!isChecked.every((item) => item === false)}
+            onClick={onSubmit}
+          >
+            submit
+          </button>
+        </div>
+      ) : (
+        <div>
+          <p>Thank you for your cooperation!</p>
+        </div>
+      )}
     </div>
   );
 }
